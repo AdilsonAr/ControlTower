@@ -6,16 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.controltower.model.KeyValue;
-
 @RestController
 @RequestMapping("/hello-world")
 public class HelloWorldController {
 	@GetMapping
 	public ResponseEntity<?> get(){
-		KeyValue keyValue=new KeyValue();
-		keyValue.setKeyAttribute("message");
-		keyValue.setValAttribute("Hello world!");
-		return new ResponseEntity<>(keyValue, HttpStatus.OK);
+		return new ResponseEntity<>("hello world", HttpStatus.OK);
 	}
 }
