@@ -1,4 +1,4 @@
-package com.controltower.model;
+package com.controltower.model.airport;
 
 import lombok.Data;
 import lombok.Getter;
