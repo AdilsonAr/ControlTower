@@ -14,8 +14,8 @@ public class HelloWorldController {
 	@GetMapping
 	public ResponseEntity<?> get(){
 		KeyValue keyValue=new KeyValue();
-		keyValue.setKeyAttribute("message");
-		keyValue.setValAttribute("Hello world!");
-		return new ResponseEntity<>(keyValue, HttpStatus.OK);
+		keyValue.setKeyAttribute(null);
+		keyValue.setValAttribute(null);
+		return new ResponseEntity<>(keyValue, HttpStatus.OK);		
 	}
 }

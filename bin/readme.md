@@ -1,4 +1,3 @@
 # Control Tower Project
 
-lorem ipsum 
-Edwin
+lorem ipsum
