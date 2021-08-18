@@ -11,5 +11,14 @@ import com.google.api.services.sheets.v4.Sheets;
 
 @Service
 public class SheetsWriterService {
+
+	public boolean createReportByFlight(int idFlight) {
+		
+		return false;
+	}
+	
+	public boolean createReportByDay(LocalDate date) {
+		return false;
+	}
 	
 }
