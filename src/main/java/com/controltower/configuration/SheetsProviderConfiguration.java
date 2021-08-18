@@ -17,16 +17,13 @@ import com.google.api.services.sheets.v4.Sheets;
 public class SheetsProviderConfiguration {
 	private static final String APPLICATION_NAME = "ControlTower";
 	@Autowired
-	private GoogleCredentialService googleCredentialService;
-	
+	private GoogleCredentialService googleCredentialService = new GoogleCredentialService();
+
 	@Bean
 	public Sheets getSheets() throws IOException, GeneralSecurityException {
-        Credential credential = googleCredentialService.getCredentials();
-        return new Sheets.Builder(
-          GoogleNetHttpTransport.newTrustedTransport(), 
-          JacksonFactory.getDefaultInstance(), credential)
-          .setApplicationName(APPLICATION_NAME)
-          .build();
-    }
-	
+		Credential credential = googleCredentialService.getCredentials();
+		return new Sheets.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(),
+				credential).setApplicationName(APPLICATION_NAME).build();
+	}
+
 }
