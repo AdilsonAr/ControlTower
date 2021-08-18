@@ -2,37 +2,29 @@ package com.controltower.model.flight;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class FlightIncident {
-
-	@Getter
-	@Setter
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idFlightIncident;
+	@Transient
 	private FlightState flightState;
-
-	@Getter
-	@Setter
+	private String flightStateText;
 	private String title;
-
-	@Getter
-	@Setter
 	private String description;
-
-	@Getter
 	private LocalDateTime timeStamp;
-
-	public FlightIncident(FlightState flightState, String title) {
-		this.flightState = flightState;
-		this.title = title;
-		this.timeStamp = LocalDateTime.now();
-	}
-
-	public FlightIncident(FlightState flightState, String title, String description) {
-		this(flightState, title);
-		this.description = description;
-	}
 
 }

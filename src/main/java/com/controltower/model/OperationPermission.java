@@ -1,6 +1,4 @@
-package com.controltower.model.airport;
-
-import java.util.List;
+package com.controltower.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,9 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-import com.controltower.model.OperationPermission;
+import com.controltower.model.airport.Airport;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,14 +17,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Airport {
+public class OperationPermission {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idAirport;
-	private String name;
+	private int idOperationPermission;
 	@ManyToOne
-	@JoinColumn(name = "idAddress")
-	private Address address;
-	@OneToMany(mappedBy = "airport")
-	private List<OperationPermission> operationPermissions;
+	@JoinColumn(name="idAirport")
+	private Airport airport;
+	@ManyToOne
+	@JoinColumn(name="idAircraft")
+	private Aircraft aircraft;
 }
