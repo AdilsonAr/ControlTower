@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Flight {
 
 	@Getter
-	private String flightNumber;
+	private int flightNumber;
 
 	@Getter
 	private Airport originAirport;
@@ -52,9 +52,9 @@ public class Flight {
 	@Setter
 	private FlightState currentState;
 
-	public Flight(Airport originAirport, Airport destinationAirport, LocalDateTime dateTimeDeparture,
+	public Flight(int flightNumber, Airport originAirport, Airport destinationAirport, LocalDateTime dateTimeDeparture,
 			LocalDateTime dateTimeArrival, Aircraft aircraft, Airline airline) {
-		this.flightNumber = UUID.randomUUID().toString();
+		this.flightNumber = flightNumber;
 		this.originAirport = originAirport;
 		this.destinationAirport = destinationAirport;
 		this.dateTimeArrival = dateTimeArrival;

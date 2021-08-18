@@ -1,5 +1,6 @@
 package com.controltower.configuration;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -23,4 +24,5 @@ public class GoogleCredentialConfiguration {
 		GoogleCredential credentials = GoogleCredential.getApplicationDefault().createScoped(scopes);
 		return credentials;
 	}
+
 }
