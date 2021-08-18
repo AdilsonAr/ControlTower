@@ -1,4 +1,4 @@
-package com.controltower.services;
+package com.controltower.service;
 
 import org.springframework.stereotype.Service;
 
