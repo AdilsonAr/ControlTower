@@ -39,7 +39,7 @@ public class SheetsReaderService {
 	}
 
 	public static List<ValueRange> readReportFromUrl(String url) {
-		List<String> ranges = Arrays.asList("A2", "C1000");
+		List<String> ranges = Arrays.asList("A2:C1000");
 		String spreadSheetId = getIdFromUrl(url);
 		try {
 			sheets = new SheetsProviderConfiguration().getSheets();
