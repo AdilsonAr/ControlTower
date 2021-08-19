@@ -4,13 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.controltower.service.EMailSenderService;
+import com.controltower.service.WeatherService;
 
 @SpringBootApplication
 public class ControlTowerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ControlTowerApplication.class, args);
-//		EMailSenderService.emailDelivery("elsarco12385@gmail.com", "https://docs.google.com/spreadsheets/d/16eH4O3T7OP78ImxRVsKxd-8SVh5dwB6DRUczkNT8vcg/edit?usp=sharing");
+		//SpringApplication.run(ControlTowerApplication.class, args);
+		System.out.println(WeatherService.getOneCityWeather("madrid"));
 	}
 
 }
