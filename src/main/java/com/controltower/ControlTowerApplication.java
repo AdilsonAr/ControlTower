@@ -11,7 +11,7 @@ public class ControlTowerApplication {
 
 	public static void main(String[] args) {
 		//SpringApplication.run(ControlTowerApplication.class, args);
-		System.out.println(WeatherService.getOneCityWeather("madrid"));
+		System.out.println(WeatherService.getOneCityWeather("los angeles"));
 	}
 
 }
