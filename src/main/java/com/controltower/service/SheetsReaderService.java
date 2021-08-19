@@ -20,7 +20,7 @@ public class SheetsReaderService {
 	@Autowired
 	private static Sheets sheets;
 
-	public static String getIdFromUrl(String url) {
+	private static String getIdFromUrl(String url) {
 		String result = "";
 		try {
 			String[] parts = url.split("spreadsheets/d/");
