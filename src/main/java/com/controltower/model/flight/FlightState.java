@@ -1,13 +1,15 @@
 package com.controltower.model.flight;
 
-public enum FlightState {
+import lombok.Getter;
 
+@Getter
+public enum FlightState {
 	STAND_BY("STAND_BY"), ON_FLIGHT("ON_FLIGHT"), LANDED("LANDED"), CANCELLED("CANCELLED");
 
-	private String s;
+	private String state;
 
-	FlightState(String s) {
-		this.s = s;
+	private FlightState(String state) {
+		this.state = state;
 	}
 
 }

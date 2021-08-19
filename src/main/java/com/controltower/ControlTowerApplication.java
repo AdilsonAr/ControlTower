@@ -1,16 +1,23 @@
 package com.controltower;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
-import com.controltower.service.EMailSenderService;
+import com.controltower.controller.FlightController;
 
-@SpringBootApplication
 public class ControlTowerApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(ControlTowerApplication.class, args);
-		EMailSenderService.emailDelivery("elsarco12385@gmail.com", "https://docs.google.com/spreadsheets/d/16eH4O3T7OP78ImxRVsKxd-8SVh5dwB6DRUczkNT8vcg/edit?usp=sharing");
+		System.out.println("Hello world!");
+		FlightController flightController;
+		try {
+			flightController = new FlightController();
+			System.out.println("numero de vuelos: "+flightController.get().size());
+			System.out.println(flightController.sendReport(5, "cycles.250@gmail.com"));
+		} catch (IOException | GeneralSecurityException e1) {
+			System.out.println("error ocurred " + e1.getCause());
+		} 
+		
 	}
-
+	
 }
