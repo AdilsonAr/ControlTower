@@ -1,5 +1,6 @@
 package com.controltower.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.controltower.dao.FlightDao;
@@ -13,6 +14,10 @@ public class FlightService {
 	
 	public List<Flight> readAll(){
 		return flightDao.readAll();
+	}
+	
+	public List<Flight> readByDay(LocalDate date){
+		return flightDao.readByDay(date);
 	}
 	
 	public Flight readById(int id) {

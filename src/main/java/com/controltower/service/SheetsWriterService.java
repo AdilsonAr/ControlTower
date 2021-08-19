@@ -48,8 +48,9 @@ public class SheetsWriterService {
 	
 	public String createReportByDay(LocalDate date, String email) throws IOException {
 		String title = "Report of day " + (date).format(formatterDateOnly);
-		List<FlightResponseDto> listDtos=new ArrayList<>();
-		return null;//createReport(listDtos, title, email);
+		List<FlightResponseDto> listDtos = new ArrayList<FlightResponseDto>();
+		(flightService.readByDay(date)).forEach(x->listDtos.add(FlightResponseDto.toDto(x)));
+		return createReport(listDtos, title, email);
 	}
 	
 	private String createReport(List<FlightResponseDto> listDtos, String title, String email) throws IOException {
