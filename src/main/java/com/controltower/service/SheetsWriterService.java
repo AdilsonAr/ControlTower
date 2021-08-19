@@ -8,6 +8,8 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.controltower.dto.FlightResponseDto;
+import com.controltower.model.flight.Flight;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.Permission;
 import com.google.api.services.sheets.v4.Sheets;
@@ -21,8 +23,11 @@ public class SheetsWriterService {
 	private Sheets sheets;
 	@Autowired
 	private Drive drive;
-
+	@Autowired
+	private FlightService flightService;
 	public String createReportByFlight(int idFlight, String email) throws IOException {
+		Flight flight=flightService.readById(idFlight);
+		FlightResponseDto dto = FlightResponseDto.toDto(flight);
 		String title="Report of flight "+ idFlight;
 		ValueRange body = new ValueRange()
 	      .setValues(Arrays.asList(

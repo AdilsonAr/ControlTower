@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +22,9 @@ public class FlightIncident {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idFlightIncident;
+	@ManyToOne
+	@JoinColumn(name = "idFlight")
+	private Flight flight;
 	@Transient
 	private FlightState flightState;
 	private String flightStateText;

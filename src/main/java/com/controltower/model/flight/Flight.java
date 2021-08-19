@@ -30,10 +30,10 @@ public class Flight {
 	private int idFlight;
 	private String flightNumber;
 	@ManyToOne
-	@JoinColumn(name = "idAirport")
+	@JoinColumn(name = "idOriginAirport")
 	private Airport originAirport;
 	@ManyToOne
-	@JoinColumn(name = "idAirport")
+	@JoinColumn(name = "idDestinationAirport")
 	private Airport destinationAirport;
 	private LocalDateTime dateTimeDeparture;
 	private LocalDateTime dateTimeArrival;
