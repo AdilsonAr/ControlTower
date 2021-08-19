@@ -14,20 +14,20 @@ import lombok.NoArgsConstructor;
 public class FlightResponseDto {
 	private int idFlight;
 	private String flightNumber;
-	private int idOriginAirport;
-	private int idDestinationAirport;
+	private String OriginAirport;
+	private String DestinationAirport;
 	private LocalDateTime dateTimeDeparture;
 	private LocalDateTime dateTimeArrival;
 	private LocalDateTime expectedDateTimeArrival;
-	private int idAircraft;
-	private int idAirline;
+	private String Aircraft;
+	private String Airline;
 	private String currentStateText;
 	
 	public static FlightResponseDto  toDto(Flight flight) {
 		return new FlightResponseDto(flight.getIdFlight(), flight.getFlightNumber(),
-				flight.getOriginAirport().getIdAirport(), flight.getDestinationAirport().getIdAirport(),
+				flight.getOriginAirport().getName(), flight.getDestinationAirport().getName(),
 				flight.getDateTimeDeparture(), flight.getDateTimeArrival(),
-				flight.getExpectedDateTimeArrival(), flight.getAircraft().getIdAircraft(),
-				flight.getAirline().getIdAirline(), flight.getCurrentStateText());
+				flight.getExpectedDateTimeArrival(), flight.getAircraft().getModel(),
+				flight.getAirline().getName(), flight.getCurrentStateText());
 	}
 }

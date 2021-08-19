@@ -1,6 +1,7 @@
 package com.controltower.controller;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,9 @@ public class FlightController {
 	private FlightService flightService;
 	private SheetsWriterService sheetsWriterService;
 	
-	public FlightController() {
-		
+	public FlightController() throws IOException, GeneralSecurityException {
+		flightService=new FlightService();
+		sheetsWriterService=new SheetsWriterService();
 	}
 	
 	public List<FlightResponseDto> get(){
@@ -22,8 +24,7 @@ public class FlightController {
 		return listDtos;
 	}
 
-	public boolean get(int idFlight, String email) throws IOException{
-		sheetsWriterService.createReportByFlight(idFlight, email);
-		return true;
+	public String sendReport(int idFlight, String email) throws IOException{
+		return sheetsWriterService.createReportByFlight(idFlight, email);
 	}
 }
