@@ -1,26 +1,9 @@
 package com.controltower;
 
-import java.util.Scanner;
-
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class ControlTowerApplication implements CommandLineRunner{
+public class ControlTowerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ControlTowerApplication.class, args);
+		System.out.println("Hello world!");
 	}
-	
-	@Override
-    public void run(String... args) {
-		Scanner scanner= new Scanner(System.in);
-        System.out.println("hello world!");
-        System.out.println("tell me your name: ");
-        String name=scanner.next();
-        System.out.println("well, have a nice day " + name);
-        scanner.close();
-    }
 
 }

@@ -1,3 +1,3 @@
-# Control Tower Project
+Control Tower Project
 
-lorem ipsum
+console application with mySQL database to manage information

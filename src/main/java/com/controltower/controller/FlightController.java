@@ -4,17 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.controltower.dto.FlightResponseDto;
 import com.controltower.service.FlightService;
 import com.controltower.service.SheetsWriterService;
 
 public class FlightController {
-	@Autowired
 	private FlightService flightService;
-	@Autowired
 	private SheetsWriterService sheetsWriterService;
+	
+	public FlightController() {
+		
+	}
 	
 	public List<FlightResponseDto> get(){
 		List<FlightResponseDto> listDtos=new ArrayList<>();

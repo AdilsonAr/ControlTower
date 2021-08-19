@@ -1,13 +1,12 @@
 package com.controltower.service;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.controltower.configuration.GoogleServicesProvider;
 import com.controltower.dto.FlightResponseDto;
 import com.controltower.model.flight.Flight;
 import com.google.api.services.drive.Drive;
@@ -17,14 +16,18 @@ import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
-@Service
 public class SheetsWriterService {
-	@Autowired
+	
 	private Sheets sheets;
-	@Autowired
 	private Drive drive;
-	@Autowired
 	private FlightService flightService;
+	
+	public SheetsWriterService() throws IOException, GeneralSecurityException {
+		sheets=GoogleServicesProvider.getSheets();
+		drive=GoogleServicesProvider.getDrive();
+		flightService=new FlightService();
+	}
+	
 	public String createReportByFlight(int idFlight, String email) throws IOException {
 		Flight flight=flightService.readById(idFlight);
 		FlightResponseDto dto = FlightResponseDto.toDto(flight);
