@@ -52,14 +52,32 @@ public class FlightDao {
         entityManager.close();
 	}
 	
+	public void create(Flight flight) {
+		EntityManagerFactory emf = EntityManagerProvider.get();
+        EntityManager entityManager = emf.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(flight);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+	}
+	
 	public Flight readById(int id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("controltower_unit");
+		EntityManagerFactory emf = EntityManagerProvider.get();
         EntityManager entityManager = emf.createEntityManager();
         
         Flight flight = entityManager.find(Flight.class, id);
         entityManager.close();
         return flight;
 	}
-	
-	
+
+	public Flight readByNumber(String number) {
+		EntityManagerFactory emf = EntityManagerProvider.get();
+        EntityManager entityManager = emf.createEntityManager();
+        
+        Query q = entityManager.createQuery("select s from Flight s where s.flightNumber = '" + number+"'", Flight.class);
+        Flight result = (Flight) q.getResultList().get(0);
+        entityManager.close();
+        return result;
+	}
+
 }
