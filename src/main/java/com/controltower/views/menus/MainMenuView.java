@@ -24,9 +24,8 @@ public class MainMenuView extends View {
 				this.option = Integer.parseInt(scanner.next());
 				selectOption(this.option);
 			} catch (java.lang.Exception e) {
-				print.printException("only enter a number between 1-4, PRESS ENTER TO CONTINUE", e);
+				print.printException("only enter a number between 1-4", e);
 				this.option = 0;
-				scanner.next();
 			}
 		} while (this.option != 4);
 

@@ -3,6 +3,8 @@ package com.controltower.views.menus;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.management.loading.PrivateClassLoader;
+
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 
 import java.lang.Exception;
@@ -40,6 +42,7 @@ public class FlightView extends View {
 				print.printMessage("5. Create flight");
 				print.printMessage("6. Create list of flights from spreadsheet");
 				print.printMessage("7. exit");
+				print.printMessage("Select option: ");
 				option = Integer.parseInt(scanner.next());
 				selectOption(option);
 			} catch (Exception e) {
@@ -101,10 +104,28 @@ public class FlightView extends View {
 		print.clearScreen();
 		print.printMessage("Enter flight number");
 		try {
-			int idFlight = Integer.parseInt(scanner.nextLine());
+			int idFlight = Integer.parseInt(scanner.next());
+			scanner.nextLine();
+			print.printMessage("Enter reason for the cancellation");
+			String reasonCancellation = scanner.nextLine();
+			boolean isCancelled = flightController.cancelFlight(idFlight, reasonCancellation);
+			print.printMessage("The flight "
+					+ (isCancelled ? "was cancelled successfully" : "couldn't be cancelled, please try again"));
 		} catch (Exception e) {
-			print.printException("only enter integer numbers, PRESS ENTER TO CONTINUE", e);
-			scanner.next();
+			print.printException("only enter integer numbers", e);
+		}
+	}
+
+	private void markFlightAsLanded() {
+		print.clearScreen();
+		print.printMessage("Enter flight number");
+		try {
+			int idFlight = Integer.parseInt(scanner.next());
+//			boolean isLanded = flightController.landFlight(idFlight, reasonCancellation);
+//			print.printMessage(
+//					"The flight " + (isCancelled ? "was landed successfully" : "couldn't be landed, please try again"));
+		} catch (Exception e) {
+			print.printException("only enter integer numbers", e);
 		}
 	}
 
