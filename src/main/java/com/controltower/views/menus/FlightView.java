@@ -2,11 +2,18 @@ package com.controltower.views.menus;
 
 import java.util.List;
 import java.util.Scanner;
+
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
+
 import java.lang.Exception;
+import java.time.format.DateTimeFormatter;
+
 import com.controltower.controller.FlightController;
 import com.controltower.dto.FlightResponseDto;
 import com.controltower.views.View;
 import com.controltower.views.printers.Printer;
+import com.controltower.views.printers.PrinterConsole;
+import com.google.common.collect.Table;
 
 public class FlightView extends View {
 
@@ -72,9 +79,16 @@ public class FlightView extends View {
 	}
 
 	private void getListOfFlights() {
+		PrinterConsole p = (PrinterConsole) print;
+		p.table.setHeaders("Flight number", "Airline", "Aircraft", "Origin Airport", "Destination Airport",
+				"Departure Time", "Arrival Time");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		for (FlightResponseDto item : flightController.get()) {
-			print.printMessage(String.format("%s", item.getAirline()));
+			p.table.addRow(item.getFlightNumber(), item.getAirline(), item.getAircraft(), item.getOriginAirport(),
+					item.getDestinationAirport(), item.getDateTimeDeparture().format(formatter),
+					item.getExpectedDateTimeArrival().format(formatter));
 		}
+		p.table.print();
 	}
 
 }
