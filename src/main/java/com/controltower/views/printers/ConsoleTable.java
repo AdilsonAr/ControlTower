@@ -60,6 +60,7 @@ public class ConsoleTable {
 		if (headers != null) {
 			printLine(maxWidths);
 		}
+		rows.clear();
 	}
 
 	private void printLine(int[] columnWidths) {
