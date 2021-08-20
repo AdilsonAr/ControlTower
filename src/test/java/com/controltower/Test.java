@@ -39,9 +39,19 @@ class Test {
 	
 	@org.junit.jupiter.api.Test
 	void test4() {
+		/*
 		FlightService flightService=new FlightService();
 		System.out.println(flightService.readById(10).getCurrentStateText());
 		flightService.cancelFlight(10, "Wheather was bad");
+		System.out.println(flightService.readById(10).getCurrentStateText());
+		*/
+	}
+	
+	@org.junit.jupiter.api.Test
+	void test5() {
+		FlightService flightService=new FlightService();
+		System.out.println(flightService.readById(10).getCurrentStateText());
+		flightService.flightLanded(10, "Wheather was god");
 		System.out.println(flightService.readById(10).getCurrentStateText());
 	}
 

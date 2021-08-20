@@ -29,6 +29,10 @@ public class FlightController {
 	public boolean cancelFlight(int flightNumber, String flightIncidentDescription) {
 		return flightService.cancelFlight(flightNumber, flightIncidentDescription);
 	}
+	
+	public boolean flightLanded(int flightNumber, String flightIncidentDescription) {
+		return flightService.cancelFlight(flightNumber, flightIncidentDescription);
+	}
 
 	public String sendReport(int idFlight, String email) throws IOException {
 		return sheetsWriterService.createReportByFlight(idFlight, email);
