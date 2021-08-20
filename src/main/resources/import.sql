@@ -13,11 +13,11 @@ insert into address (country, city) values ('Nicaragua','Managua');
 insert into address (country, city) values ('Panama','Panama City');
 insert into address (country, city) values ('Costa Rica','San José');
 
-insert into airport (name, idAddress) values('Monseñor Óscar Arnulfo Romero International Airport', 1);
-insert into airport (name, idAddress) values('Toncontin International Airport', 2);
-insert into airport (name, idAddress) values('Augusto C. Sandino International Airport', 3);
-insert into airport (name, idAddress) values('Tocumen International Airport', 4);
-insert into airport (name, idAddress) values('Juan Santamaría International Airport', 5);
+insert into airport (name, idAddress) values('Monseñor Óscar Arnulfo Romero', 1);
+insert into airport (name, idAddress) values('Toncontin', 2);
+insert into airport (name, idAddress) values('Augusto C. Sandino', 3);
+insert into airport (name, idAddress) values('Tocumen', 4);
+insert into airport (name, idAddress) values('Juan Santamaría', 5);
 
 insert into operationpermission (idAircraft, idAirport) values (1,1);
 insert into operationpermission (idAircraft, idAirport) values (2,1);

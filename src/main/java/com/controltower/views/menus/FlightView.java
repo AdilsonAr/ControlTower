@@ -92,9 +92,9 @@ public class FlightView extends View {
 	private void getListOfFlights() {
 		print.clearScreen();
 		PrinterConsole p = (PrinterConsole) print;
-		p.table.setHeaders("Flight number", "Airline", "Aircraft", "Origin Airport", "Destination Airport",
+		p.table.setHeaders("Flight number", "Airline", "Aircraft", "Origin", "Destination",
 				"Departure Time", "Arrival Time", "STATUS");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		for (FlightResponseDto item : flightController.get()) {
 			p.table.addRow(item.getFlightNumber(), item.getAirline(), item.getAircraft(), item.getOriginAirport(),
 					item.getDestinationAirport(), item.getDateTimeDeparture().format(formatter),
