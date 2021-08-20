@@ -17,6 +17,11 @@ public class WeatherService {
 
 	private static Map<String, Object> jsonToMap(String str) {
 		Map<String, Object> map = new Gson().fromJson(str, new TypeToken<HashMap<String, Object>>() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -461320958218731361L;
 		}.getType());
 		return map;
 	}
