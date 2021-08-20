@@ -2,6 +2,7 @@ package com.controltower;
 
 import com.controltower.model.flight.Flight;
 import com.controltower.service.FlightService;
+import com.controltower.service.WeatherService;
 
 class Test {
 
@@ -49,10 +50,12 @@ class Test {
 	
 	@org.junit.jupiter.api.Test
 	void test5() {
+		/*
 		FlightService flightService=new FlightService();
 		System.out.println(flightService.readById(10).getCurrentStateText());
 		flightService.flightLanded(10, "Wheather was god");
 		System.out.println(flightService.readById(10).getCurrentStateText());
+		*/
 	}
 
 }
