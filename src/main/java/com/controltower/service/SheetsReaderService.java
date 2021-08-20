@@ -14,7 +14,7 @@ import com.controltower.model.airport.Airport;
 import com.controltower.model.flight.Flight;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.ValueRange;
-import com.controltower.model.flight.Flight;
+
 
 public class SheetsReaderService {
 
@@ -39,7 +39,6 @@ public class SheetsReaderService {
 			}
 		} catch (Exception e) {
 			result = "";
-<<<<<<< HEAD
 		} 
 		
 		return result;
@@ -101,36 +100,6 @@ public class SheetsReaderService {
 		}
 		listFlights.forEach(x->flightService.create(x));
 		return "The information has been added to database";
-=======
-		} finally {
-			return result;
-		}
-	}
-
-	private static ValueRange getValuesRange(String spreadSheetId, String sheetRange) {
-		try {
-			Sheets sheets = GoogleServicesProvider.getSheets();
-			Sheets.Spreadsheets.Values.Get request = sheets.spreadsheets().values().get(spreadSheetId, sheetRange);
-			request.setFields("values");
-			ValueRange response = request.execute();
-			return response;
-		} catch (Exception ex) {
-			return null;
-		}
-	}
-
-	private static List<Flight> setListOfFlights(ValueRange values) {
-		List<Flight> listFlights = new ArrayList<>();
-		for (List<Object> item : values.getValues()) {
-			System.out.println(item.get(0));
-		}
-		return listFlights;
-	}
-
-	public static void readReportFromUrl(String url) {
-		String spreadSheetId = getIdFromUrl(url);
-		ValueRange valueRange = getValuesRange(spreadSheetId, "A2:G1000");
->>>>>>> 8a64c0edb6b796d370294681274c57d41791ada7
 	}
 
 }
