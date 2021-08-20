@@ -47,7 +47,7 @@ public class SheetsReaderService {
 	public String readReportFromUrl(String url) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		List<Flight> listFlights=new ArrayList<>();
-		String range = "A1:I5";
+		String range = "A2:I100";
 		String spreadSheetId = getIdFromUrl(url);
 		try {
 			
@@ -94,9 +94,10 @@ public class SheetsReaderService {
 	        }
 			
 		} catch (IOException e) {
-			
-			e.printStackTrace();
 			return "The information could not be loaded";
+		}
+		catch (Exception e) {
+			return "Verify the URL and try again later";
 		}
 		listFlights.forEach(x->flightService.create(x));
 		return "The information has been added to database";
