@@ -52,6 +52,15 @@ public class FlightDao {
         entityManager.close();
 	}
 	
+	public void create(Flight flight) {
+		EntityManagerFactory emf = EntityManagerProvider.get();
+        EntityManager entityManager = emf.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(flight);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+	}
+	
 	public Flight readById(int id) {
 		EntityManagerFactory emf = EntityManagerProvider.get();
         EntityManager entityManager = emf.createEntityManager();

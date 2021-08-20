@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.controltower.dao.FlightDao;
+import com.controltower.dao.FlightIncidentDao;
 import com.controltower.model.flight.Flight;
 import com.controltower.model.flight.FlightIncident;
 import com.controltower.model.flight.FlightState;
@@ -30,16 +31,19 @@ public class FlightService {
 	}
 
 	public boolean cancelFlight(int id, String flightIncidentDescription) {
+		FlightIncidentDao flightIncidentDao=new FlightIncidentDao();
 		Flight currentFlight = flightDao.readById(id);
-		List<FlightIncident> list = new ArrayList<>();
+		
 		FlightIncident flightIncident = new FlightIncident();
-		flightIncident.setFlight(currentFlight);
 		flightIncident.setTitle("Flight Cancelled");
 		flightIncident.setDescription(flightIncidentDescription);
+		flightIncident.setFlightStateText(FlightState.CANCELLED.getState());
 		flightIncident.setTimeStamp(LocalDateTime.now());
-		list.add(flightIncident);
-		currentFlight.setListFlightIncidents(list);
-		currentFlight.setCurrentState(FlightState.CANCELLED);
+		flightIncident.setFlight(currentFlight);
+		
+		currentFlight.setCurrentStateText(FlightState.CANCELLED.getState());
+		flightDao.update(currentFlight);
+		flightIncidentDao.create(flightIncident);
 		return true;
 	}
 }
