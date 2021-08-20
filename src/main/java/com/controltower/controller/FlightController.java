@@ -9,15 +9,18 @@ import java.util.List;
 import com.controltower.dto.FlightResponseDto;
 import com.controltower.model.flight.FlightIncident;
 import com.controltower.service.FlightService;
+import com.controltower.service.SheetsReaderService;
 import com.controltower.service.SheetsWriterService;
 
 public class FlightController {
 	private FlightService flightService;
 	private SheetsWriterService sheetsWriterService;
+	private SheetsReaderService sheetsReaderService;
 
 	public FlightController() throws IOException, GeneralSecurityException {
 		flightService = new FlightService();
 		sheetsWriterService = new SheetsWriterService();
+		sheetsReaderService = new SheetsReaderService();
 	}
 
 	public List<FlightResponseDto> get() {
@@ -29,7 +32,7 @@ public class FlightController {
 	public boolean cancelFlight(String flightNumber, String flightIncidentDescription) {
 		return flightService.cancelFlight(flightNumber.toUpperCase().trim(), flightIncidentDescription);
 	}
-	
+
 	public boolean landFlight(String flightNumber, String flightIncidentDescription) {
 		return flightService.landFlight(flightNumber, flightIncidentDescription);
 	}
@@ -46,5 +49,9 @@ public class FlightController {
 	 */
 	public String sendReportByDay(LocalDate date, String email) throws IOException {
 		return sheetsWriterService.createReportByDay(date, email);
+	}
+
+	public String createFlightsFromSpreadsheet(String url) {
+		return sheetsReaderService.readReportFromUrl(url);
 	}
 }

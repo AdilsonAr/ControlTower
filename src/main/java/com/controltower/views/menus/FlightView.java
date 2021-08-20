@@ -46,8 +46,8 @@ public class FlightView extends View {
 				option = Integer.parseInt(scanner.next());
 				selectOption(option);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
 				print.printException("enter a valid number", e);
+				((PrinterConsole) print).pressEnterToContinue();
 			}
 		} while (option != 7);
 	}
@@ -77,7 +77,9 @@ public class FlightView extends View {
 		case 5:
 			break;
 
+		// read spreadsheet and insert flights batch
 		case 6:
+			createFlightsFromSpreadsheet();
 			break;
 
 		case 7:
@@ -115,9 +117,10 @@ public class FlightView extends View {
 			boolean isCancelled = flightController.cancelFlight(idFlight, reasonCancellation);
 			print.printMessage("The flight "
 					+ (isCancelled ? "was cancelled successfully" : "couldn't be cancelled, please try again"));
-			((PrinterConsole) print).pressEnterToContinue();
 		} catch (Exception e) {
 			print.printException("only enter integer numbers", e);
+		} finally {
+			((PrinterConsole) print).pressEnterToContinue();
 		}
 	}
 
@@ -130,9 +133,24 @@ public class FlightView extends View {
 			boolean isLanded = flightController.landFlight(idFlight, "Flight landed succesfully!");
 			print.printMessage(
 					"The flight " + (isLanded ? "was landed successfully" : "couldn't be landed, please try again"));
-			((PrinterConsole) print).pressEnterToContinue();
 		} catch (Exception e) {
 			print.printException("only enter integer numbers", e);
+		} finally {
+			((PrinterConsole) print).pressEnterToContinue();
+		}
+	}
+
+	private void createFlightsFromSpreadsheet() {
+		print.clearScreen();
+		print.printMessage("Enter the google spreadsheet url");
+		try {
+			scanner.nextLine();
+			String url = scanner.nextLine();
+			print.printMessage(flightController.createFlightsFromSpreadsheet(url));
+		} catch (Exception e) {
+			print.printException("Please verify the spreadsheet url and try again", e);
+		} finally {
+			((PrinterConsole) print).pressEnterToContinue();
 		}
 	}
 
