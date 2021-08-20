@@ -2,65 +2,52 @@ package com.controltower.model.flight;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import com.controltower.model.Aircraft;
 import com.controltower.model.Airline;
-import com.controltower.model.aircraft.Aircraft;
 import com.controltower.model.airport.Airport;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Flight {
-
-	@Getter
-	private int flightNumber;
-
-	@Getter
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idFlight;
+	private String flightNumber;
+	@ManyToOne
+	@JoinColumn(name = "idOriginAirport")
 	private Airport originAirport;
-
-	@Getter
+	@ManyToOne
+	@JoinColumn(name = "idDestinationAirport")
 	private Airport destinationAirport;
-
-	@Getter
-	@Setter
 	private LocalDateTime dateTimeDeparture;
-
-	@Getter
-	@Setter
 	private LocalDateTime dateTimeArrival;
-
-	@Getter
-	@Setter
 	private LocalDateTime expectedDateTimeArrival;
-
-	@Getter
-	@Setter
+	@ManyToOne
+	@JoinColumn(name = "idAircraft")
 	private Aircraft aircraft;
-
-	@Getter
-	@Setter
+	@ManyToOne
+	@JoinColumn(name = "idAirline")
 	private Airline airline;
-
-	@Getter
-	@Setter
+	@OneToMany(mappedBy = "flight")
 	private List<FlightIncident> listFlightIncidents;
-
-	@Getter
-	@Setter
+	@Transient
 	private FlightState currentState;
-
-	public Flight(int flightNumber, Airport originAirport, Airport destinationAirport, LocalDateTime dateTimeDeparture,
-			LocalDateTime dateTimeArrival, Aircraft aircraft, Airline airline) {
-		this.flightNumber = flightNumber;
-		this.originAirport = originAirport;
-		this.destinationAirport = destinationAirport;
-		this.dateTimeArrival = dateTimeArrival;
-		this.dateTimeDeparture = dateTimeDeparture;
-		this.aircraft = aircraft;
-		this.airline = airline;
-	}
+	private String currentStateText;
 
 }

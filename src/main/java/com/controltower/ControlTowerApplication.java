@@ -1,17 +1,21 @@
 package com.controltower;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.controltower.service.EMailSenderService;
 import com.controltower.service.WeatherService;
+import java.util.Scanner;
+import com.controltower.views.View;
+import com.controltower.views.menus.MainMenuView;
+import com.controltower.views.printers.Printer;
+import com.controltower.views.printers.PrinterConsole;
 
-@SpringBootApplication
 public class ControlTowerApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(ControlTowerApplication.class, args);
-		System.out.println(WeatherService.getOneCityWeather("los angeles"));
+		Scanner input = new Scanner(System.in);
+		Printer output = new PrinterConsole();
+		View startMenu = new MainMenuView(input, output);
+		startMenu.show();
+
 	}
 
 }

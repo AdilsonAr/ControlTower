@@ -1,4 +1,3 @@
-# Control Tower Project
+Control Tower Project
 
-lorem ipsum 
-Edwin
+console application with mySQL database to manage information
