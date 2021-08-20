@@ -105,13 +105,14 @@ public class FlightView extends View {
 		print.clearScreen();
 		print.printMessage("Enter flight number");
 		try {
-			int idFlight = Integer.parseInt(scanner.next());
+			String idFlight = scanner.nextLine();
 			scanner.nextLine();
 			print.printMessage("Enter reason for the cancellation");
 			String reasonCancellation = scanner.nextLine();
 			boolean isCancelled = flightController.cancelFlight(idFlight, reasonCancellation);
 			print.printMessage("The flight "
 					+ (isCancelled ? "was cancelled successfully" : "couldn't be cancelled, please try again"));
+			
 		} catch (Exception e) {
 			print.printException("only enter integer numbers", e);
 		}

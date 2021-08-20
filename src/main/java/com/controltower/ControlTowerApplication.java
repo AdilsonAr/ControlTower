@@ -13,7 +13,6 @@ public class ControlTowerApplication {
 		Printer output = new PrinterConsole();
 		View startMenu = new MainMenuView(input, output);
 		startMenu.show();
-
 	}
 
 }

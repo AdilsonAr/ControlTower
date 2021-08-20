@@ -30,17 +30,17 @@ public class FlightService {
 		return flightDao.readById(id);
 	}
 
-	public boolean cancelFlight(int id, String flightIncidentDescription) {
-		FlightIncidentDao flightIncidentDao=new FlightIncidentDao();
-		Flight currentFlight = flightDao.readById(id);
-		
+	public boolean cancelFlight(String flightNumber, String flightIncidentDescription) {
+		FlightIncidentDao flightIncidentDao = new FlightIncidentDao();
+		Flight currentFlight = flightDao.readByNumber(flightNumber);
+
 		FlightIncident flightIncident = new FlightIncident();
 		flightIncident.setTitle("Flight Cancelled");
 		flightIncident.setDescription(flightIncidentDescription);
 		flightIncident.setFlightStateText(FlightState.CANCELLED.getState());
 		flightIncident.setTimeStamp(LocalDateTime.now());
 		flightIncident.setFlight(currentFlight);
-		
+
 		currentFlight.setCurrentStateText(FlightState.CANCELLED.getState());
 		flightDao.update(currentFlight);
 		flightIncidentDao.create(flightIncident);
