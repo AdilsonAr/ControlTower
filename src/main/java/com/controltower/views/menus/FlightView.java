@@ -1,10 +1,8 @@
 package com.controltower.views.menus;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Scanner;
-
+import java.lang.Exception;
 import com.controltower.controller.FlightController;
 import com.controltower.dto.FlightResponseDto;
 import com.controltower.views.View;
