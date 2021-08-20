@@ -23,16 +23,15 @@ public class AirportView extends View {
 	public void show() {
 		do {
 			try {
+				print.clearScreen();
 				print.printMessage("1. Get list of allowed aircrafts");
 				print.printMessage("2. Exit");
 				print.printMessage("Select option: ");
 				this.option = Integer.parseInt(scanner.next());
 				selectOption(this.option);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
 				print.printException("enter a number between 1-2", e);
-				this.option = 0;
-				scanner.next();
+				((PrinterConsole) print).pressEnterToContinue();
 			}
 		} while (this.option != 2);
 	}
