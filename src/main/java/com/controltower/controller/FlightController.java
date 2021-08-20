@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.controltower.dto.FlightResponseDto;
+import com.controltower.model.flight.FlightIncident;
 import com.controltower.service.FlightService;
 import com.controltower.service.SheetsWriterService;
 
@@ -23,6 +24,10 @@ public class FlightController {
 		List<FlightResponseDto> listDtos=new ArrayList<>();
 		(flightService.readAll()).forEach(x->listDtos.add(FlightResponseDto.toDto(x)));
 		return listDtos;
+	}
+	
+	public boolean cancelFlight(int flightNumber, FlightIncident flightIncident) {
+		return flightService.cancelFlight(flightNumber, flightIncident);
 	}
 
 	public String sendReport(int idFlight, String email) throws IOException{
