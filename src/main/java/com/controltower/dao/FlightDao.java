@@ -50,4 +50,6 @@ public class FlightDao {
         entityManager.close();
         return flight;
 	}
+	
+	
 }

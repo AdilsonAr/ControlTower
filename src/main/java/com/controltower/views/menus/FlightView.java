@@ -3,6 +3,8 @@ package com.controltower.views.menus;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.management.loading.PrivateClassLoader;
+
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 
 import java.lang.Exception;
@@ -32,6 +34,7 @@ public class FlightView extends View {
 	public void show() {
 		do {
 			try {
+				print.clearScreen();
 				print.printMessage("1. List all flights");
 				print.printMessage("2. Send flights list by email");
 				print.printMessage("3. Mark flight as landed");
@@ -39,6 +42,7 @@ public class FlightView extends View {
 				print.printMessage("5. Create flight");
 				print.printMessage("6. Create list of flights from spreadsheet");
 				print.printMessage("7. exit");
+				print.printMessage("Select option: ");
 				option = Integer.parseInt(scanner.next());
 				selectOption(option);
 			} catch (Exception e) {
@@ -50,6 +54,8 @@ public class FlightView extends View {
 	@Override
 	protected void selectOption(int option) {
 		switch (option) {
+
+		// get list of flights
 		case 1:
 			getListOfFlights();
 			break;
@@ -60,7 +66,9 @@ public class FlightView extends View {
 		case 3:
 			break;
 
+		// mark flight as cancelled
 		case 4:
+			markFlightAsCancelled();
 			break;
 
 		case 5:
@@ -79,6 +87,7 @@ public class FlightView extends View {
 	}
 
 	private void getListOfFlights() {
+		print.clearScreen();
 		PrinterConsole p = (PrinterConsole) print;
 		p.table.setHeaders("Flight number", "Airline", "Aircraft", "Origin Airport", "Destination Airport",
 				"Departure Time", "Arrival Time");
@@ -89,6 +98,35 @@ public class FlightView extends View {
 					item.getExpectedDateTimeArrival().format(formatter));
 		}
 		p.table.print();
+	}
+
+	private void markFlightAsCancelled() {
+		print.clearScreen();
+		print.printMessage("Enter flight number");
+		try {
+			int idFlight = Integer.parseInt(scanner.next());
+			scanner.nextLine();
+			print.printMessage("Enter reason for the cancellation");
+			String reasonCancellation = scanner.nextLine();
+			boolean isCancelled = flightController.cancelFlight(idFlight, reasonCancellation);
+			print.printMessage("The flight "
+					+ (isCancelled ? "was cancelled successfully" : "couldn't be cancelled, please try again"));
+		} catch (Exception e) {
+			print.printException("only enter integer numbers", e);
+		}
+	}
+
+	private void markFlightAsLanded() {
+		print.clearScreen();
+		print.printMessage("Enter flight number");
+		try {
+			int idFlight = Integer.parseInt(scanner.next());
+//			boolean isLanded = flightController.landFlight(idFlight, reasonCancellation);
+//			print.printMessage(
+//					"The flight " + (isCancelled ? "was landed successfully" : "couldn't be landed, please try again"));
+		} catch (Exception e) {
+			print.printException("only enter integer numbers", e);
+		}
 	}
 
 }
