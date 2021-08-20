@@ -9,7 +9,7 @@ import com.controltower.service.WeatherService;
 class Test {
 
 	
-	@org.junit.jupiter.api.Test
+//	@org.junit.jupiter.api.Test
 	void test() {
 		/*
 		AircraftService service= new AircraftService();
@@ -20,7 +20,7 @@ class Test {
 		*/
 	}
 	
-	@org.junit.jupiter.api.Test
+//	@org.junit.jupiter.api.Test
 	void test2() {
 		/*
 		Flight flight=dao.readById(1);
@@ -31,7 +31,7 @@ class Test {
 		*/
 	}
 	
-	@org.junit.jupiter.api.Test
+//	@org.junit.jupiter.api.Test
 	void test3() {
 		/*
 		FlightDao dao=new FlightDao();
@@ -41,7 +41,7 @@ class Test {
 		*/
 	}
 	
-	@org.junit.jupiter.api.Test
+//	@org.junit.jupiter.api.Test
 	void test4() {
 		/*
 		FlightService flightService=new FlightService();
@@ -51,7 +51,7 @@ class Test {
 		*/
 	}
 	
-	@org.junit.jupiter.api.Test
+//	@org.junit.jupiter.api.Test
 	void test5() {
 		/*
 		FlightService flightService=new FlightService();
@@ -61,14 +61,14 @@ class Test {
 		*/
 	}
 	
-	@org.junit.jupiter.api.Test
+//	@org.junit.jupiter.api.Test
 	void test6() {
 		/*
 		System.out.println(WeatherService.getOneCityWeather("San Salvador"));
 		*/
 	}
 	
-	@org.junit.jupiter.api.Test
+//	@org.junit.jupiter.api.Test
 	void test7() throws IOException, GeneralSecurityException {
 		SheetsReaderService  sheetsReaderService=new SheetsReaderService();
 		String m=sheetsReaderService.readReportFromUrl("https://docs.google.com/spreadsheets/d/16A-0NByteqdkniz4Tr6LRao5fjdeBrBbCUxBA6RYbwQ/edit?usp=sharing");
