@@ -98,6 +98,7 @@ public class FlightView extends View {
 					item.getExpectedDateTimeArrival().format(formatter));
 		}
 		p.table.print();
+		p.pressEnterToContinue();
 	}
 
 	private void markFlightAsCancelled() {

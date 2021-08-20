@@ -17,17 +17,16 @@ public class MainMenuView extends View {
 			try {
 				print.clearScreen();
 				print.printMessage("1. Airport Menu");
-				print.printMessage("2. Airline Menu");
-				print.printMessage("3. Flight Menu");
-				print.printMessage("4. Exit");
+				print.printMessage("2. Flight Menu");
+				print.printMessage("3. Exit");
 				print.printMessage("Select option: ");
 				this.option = Integer.parseInt(scanner.next());
 				selectOption(this.option);
 			} catch (java.lang.Exception e) {
-				print.printException("only enter a number between 1-4", e);
+				print.printException("only enter a number between 1-3", e);
 				this.option = 0;
 			}
-		} while (this.option != 4);
+		} while (this.option != 3);
 
 	}
 
@@ -37,12 +36,9 @@ public class MainMenuView extends View {
 			selectMenu(new AirportView(scanner, print));
 			break;
 		case 2:
-			selectMenu(new AirlineView(scanner, print));
-			break;
-		case 3:
 			selectMenu(new FlightView(scanner, print));
 			break;
-		case 4:
+		case 3:
 			exit();
 			break;
 		default:
