@@ -11,22 +11,28 @@ class Test {
 
 	@org.junit.jupiter.api.Test
 	void test() {
+		/*
 		AircraftService service= new AircraftService();
 		List<Aircraft> list=service.getAllowed();
 		list.forEach(x->{
 			System.out.println(x.getModel());
 		});
+		*/
 	}
 	
 	@org.junit.jupiter.api.Test
 	void test2() {
 		FlightDao dao=new FlightDao();
-		
+		Flight flight=dao.readByNumber("YH 56");
+		System.out.println(flight.getFlightNumber());
+		System.out.println(flight.getIdFlight());
+		/*
 		Flight flight=dao.readById(1);
 		System.out.println(flight.getCurrentStateText());
 		flight.setCurrentStateText("LANDED");
 		dao.update(flight);
 		System.out.println((dao.readById(1)).getCurrentStateText());
+		*/
 	}
 
 }
