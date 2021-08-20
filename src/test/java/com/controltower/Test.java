@@ -1,11 +1,14 @@
 package com.controltower;
 
+import org.junit.Test;
+
 import com.controltower.model.flight.Flight;
 import com.controltower.service.FlightService;
 import com.controltower.service.WeatherService;
 
 class Test {
 
+	
 	@org.junit.jupiter.api.Test
 	void test() {
 		/*
