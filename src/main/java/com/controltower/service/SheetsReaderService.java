@@ -2,6 +2,7 @@ package com.controltower.service;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
 import com.google.api.services.sheets.v4.model.Sheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
-
+import com.controltower.model.flight.Flight;
 
 public class SheetsReaderService {
 
@@ -31,22 +32,31 @@ public class SheetsReaderService {
 		} finally {
 			return result;
 		}
-
 	}
 
-	public static List<ValueRange> readReportFromUrl(String url) {
-		List<String> ranges = Arrays.asList("A2:C1000");
-		String spreadSheetId = getIdFromUrl(url);
+	private static ValueRange getValuesRange(String spreadSheetId, String sheetRange) {
 		try {
-			sheets = GoogleServicesProvider.getSheets();
-			BatchGetValuesResponse readResult = sheets.spreadsheets().values().batchGet(spreadSheetId).setRanges(ranges)
-					.execute();
-
-			return readResult.getValueRanges();
-		} catch (IOException | GeneralSecurityException e) {
-			e.printStackTrace();
+			Sheets sheets = GoogleServicesProvider.getSheets();
+			Sheets.Spreadsheets.Values.Get request = sheets.spreadsheets().values().get(spreadSheetId, sheetRange);
+			request.setFields("values");
+			ValueRange response = request.execute();
+			return response;
+		} catch (Exception ex) {
+			return null;
 		}
-		return null;
+	}
+
+	private static List<Flight> setListOfFlights(ValueRange values) {
+		List<Flight> listFlights = new ArrayList<>();
+		for (List<Object> item : values.getValues()) {
+			System.out.println(item.get(0));
+		}
+		return listFlights;
+	}
+
+	public static void readReportFromUrl(String url) {
+		String spreadSheetId = getIdFromUrl(url);
+		ValueRange valueRange = getValuesRange(spreadSheetId, "A2:G1000");
 	}
 
 }
