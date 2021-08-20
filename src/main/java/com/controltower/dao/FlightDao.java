@@ -10,11 +10,12 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import com.controltower.configuration.EntityManagerProvider;
 import com.controltower.model.flight.Flight;
 
 public class FlightDao { 
 	public List<Flight> readAll(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("controltower_unit");
+        EntityManagerFactory emf = EntityManagerProvider.get();
         EntityManager entityManager = emf.createEntityManager();
         
         Query q = entityManager.createQuery("select s from Flight s");
@@ -24,7 +25,7 @@ public class FlightDao {
 	}
 	
 	public List<Flight> readByDay(LocalDate date){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("controltower_unit");
+        EntityManagerFactory emf = EntityManagerProvider.get();
         EntityManager entityManager = emf.createEntityManager();
         
         DateTimeFormatter formatterDateOnly = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -40,6 +41,15 @@ public class FlightDao {
         System.out.println(resultList.getClass().getCanonicalName());
         entityManager.close();
         return resultList;
+	}
+	
+	public void update(Flight flight) {
+		EntityManagerFactory emf = EntityManagerProvider.get();
+        EntityManager entityManager = emf.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(flight);
+        entityManager.getTransaction().commit();
+        entityManager.close();
 	}
 	
 	public Flight readById(int id) {
