@@ -48,14 +48,18 @@ public class SheetsWriterService {
 	
 	public String createReportByDay(LocalDate date, String email) throws IOException {
 		String title = "Report of day " + (date).format(formatterDateOnly);
-		List<FlightResponseDto> listDtos=new ArrayList<>();
-		return null;//createReport(listDtos, title, email);
+		List<FlightResponseDto> listDtos = new ArrayList<FlightResponseDto>();
+		(flightService.readByDay(date)).forEach(x->listDtos.add(FlightResponseDto.toDto(x)));
+		return createReport(listDtos, title, email);
 	}
 	
 	private String createReport(List<FlightResponseDto> listDtos, String title, String email) throws IOException {
+		String wheather=WeatherService.getOneCityWeather("San Salvador");
 		Spreadsheet spreadsheet=create(title);
 		List<List<Object>> values=new ArrayList<>();
 		values.add(Arrays.asList(title));
+		values.add(Arrays.asList(""));
+		values.add(Arrays.asList(wheather));
 		values.add(Arrays.asList(""));
 		for(FlightResponseDto c: listDtos) {
 			String dateTimeDeparture="null";
@@ -80,7 +84,8 @@ public class SheetsWriterService {
 		
 		write(spreadsheet.getSpreadsheetId(), body);
 		createPermission(spreadsheet.getSpreadsheetId(), email);
-		String message="The report you requested is already available with this URL: " + spreadsheet.getSpreadsheetUrl();
+		String message;
+		message = "The report you requested is already available with this URL: " + spreadsheet.getSpreadsheetUrl();
 		return message;
 	}
 	
