@@ -2,6 +2,12 @@ package com.controltower.views.printers;
 
 public class PrinterConsole implements Printer {
 
+	public ConsoleTable table;
+
+	public PrinterConsole() {
+		this.table = new ConsoleTable();
+	}
+
 	@Override
 	public void printMessage(String message) {
 		System.out.println(message);

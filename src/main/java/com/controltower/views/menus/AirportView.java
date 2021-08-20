@@ -1,7 +1,7 @@
 package com.controltower.views.menus;
 
 import java.util.Scanner;
-
+import java.lang.Exception;
 import com.controltower.views.View;
 import com.controltower.views.printers.Printer;
 
