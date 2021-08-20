@@ -21,6 +21,10 @@ public class FlightService {
 	public List<Flight> readAll() {
 		return flightDao.readAll();
 	}
+	
+	public void create(Flight flight) {
+		flightDao.create(flight);
+	}
 
 	public List<Flight> readByDay(LocalDate date) {
 		return flightDao.readByDay(date);

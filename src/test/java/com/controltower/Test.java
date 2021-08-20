@@ -1,7 +1,9 @@
 package com.controltower;
 
-import com.controltower.model.flight.Flight;
-import com.controltower.service.FlightService;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import com.controltower.service.SheetsReaderService;
 import com.controltower.service.WeatherService;
 
 class Test {
@@ -56,6 +58,20 @@ class Test {
 		flightService.flightLanded(10, "Wheather was god");
 		System.out.println(flightService.readById(10).getCurrentStateText());
 		*/
+	}
+	
+	@org.junit.jupiter.api.Test
+	void test6() {
+		/*
+		System.out.println(WeatherService.getOneCityWeather("San Salvador"));
+		*/
+	}
+	
+	@org.junit.jupiter.api.Test
+	void test7() throws IOException, GeneralSecurityException {
+		SheetsReaderService  sheetsReaderService=new SheetsReaderService();
+		String m=sheetsReaderService.readReportFromUrl("https://docs.google.com/spreadsheets/d/16A-0NByteqdkniz4Tr6LRao5fjdeBrBbCUxBA6RYbwQ/edit?usp=sharing");
+		System.out.println(m);
 	}
 
 }
