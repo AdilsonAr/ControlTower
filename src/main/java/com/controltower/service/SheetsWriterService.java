@@ -81,7 +81,8 @@ public class SheetsWriterService {
 		
 		write(spreadsheet.getSpreadsheetId(), body);
 		createPermission(spreadsheet.getSpreadsheetId(), email);
-		String message="The report you requested is already available with this URL: " + spreadsheet.getSpreadsheetUrl();
+		String message;
+		message = "The report you requested is already available with this URL: " + spreadsheet.getSpreadsheetUrl();
 		return message;
 	}
 	

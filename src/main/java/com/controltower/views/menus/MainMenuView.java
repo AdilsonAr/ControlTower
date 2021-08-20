@@ -23,7 +23,7 @@ public class MainMenuView extends View {
 				this.option = Integer.parseInt(scanner.next());
 				print.clearScreen();
 				selectOption(this.option);
-			} catch (Exception e) {
+			} catch (java.lang.Exception e) {
 				System.out.println(e.getMessage());
 				print.printException("enter a number between 1-4", e);
 				this.option = 0;
