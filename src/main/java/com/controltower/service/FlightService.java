@@ -33,6 +33,10 @@ public class FlightService {
 	public Flight readById(int id) {
 		return flightDao.readById(id);
 	}
+	
+	public Flight readByFlightNumber(String flightNumber) {
+		return flightDao.readByNumber(flightNumber);
+	}
 
 	public boolean cancelFlight(String flightNumber, String flightIncidentDescription) {
 		FlightIncidentDao flightIncidentDao = new FlightIncidentDao();

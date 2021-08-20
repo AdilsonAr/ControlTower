@@ -33,8 +33,8 @@ public class SheetsWriterService {
 		flightService=new FlightService();
 	}
 	
-	public String createReportByFlight(int idFlight, String email) throws IOException {
-		Flight flight=flightService.readById(idFlight);
+	public String createReportByFlight(String idFlight, String email) throws IOException {
+		Flight flight=flightService.readByFlightNumber(idFlight);
 		if(flight==null) {
 			return "That flight does not exist";
 		}

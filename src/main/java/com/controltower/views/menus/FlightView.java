@@ -1,13 +1,9 @@
 package com.controltower.views.menus;
 
-import java.util.List;
 import java.util.Scanner;
 
-import javax.management.loading.PrivateClassLoader;
-
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
-
 import java.lang.Exception;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.controltower.controller.FlightController;
@@ -15,7 +11,6 @@ import com.controltower.dto.FlightResponseDto;
 import com.controltower.views.View;
 import com.controltower.views.printers.Printer;
 import com.controltower.views.printers.PrinterConsole;
-import com.google.common.collect.Table;
 
 public class FlightView extends View {
 
@@ -36,12 +31,13 @@ public class FlightView extends View {
 			try {
 				print.clearScreen();
 				print.printMessage("1. List all flights");
-				print.printMessage("2. Send flights list by email");
-				print.printMessage("3. Mark flight as landed");
-				print.printMessage("4. Mark flight as cancelled");
-				print.printMessage("5. Create flight");
-				print.printMessage("6. Create list of flights from spreadsheet");
-				print.printMessage("7. exit");
+				print.printMessage("2. email flights list by flight date");
+				print.printMessage("3. email flights list by flight id");
+				print.printMessage("4. Mark flight as landed");
+				print.printMessage("5. Mark flight as cancelled");
+				print.printMessage("6. Create flight");
+				print.printMessage("7. Create list of flights from spreadsheet");
+				print.printMessage("8. exit");
 				print.printMessage("Select option: ");
 				option = Integer.parseInt(scanner.next());
 				selectOption(option);
@@ -49,7 +45,7 @@ public class FlightView extends View {
 				print.printException("enter a valid number", e);
 				((PrinterConsole) print).pressEnterToContinue();
 			}
-		} while (option != 7);
+		} while (option != 8);
 	}
 
 	@Override
@@ -61,31 +57,38 @@ public class FlightView extends View {
 			getListOfFlights();
 			break;
 
+		// send email with flight list filtering by flight date
 		case 2:
+			emailFlightListByDate();
+			break;
+
+		// send email with flight list filtering by flight date
+		case 3:
+			emailFlightListById();
 			break;
 
 		// mark flight as landed
-		case 3:
+		case 4:
 			markFlightAsLanded();
 			break;
 
 		// mark flight as cancelled
-		case 4:
+		case 5:
 			markFlightAsCancelled();
 			break;
 
-		case 5:
+		// create flight
+		case 6:
 			break;
 
 		// read spreadsheet and insert flights batch
-		case 6:
+		case 7:
 			createFlightsFromSpreadsheet();
 			break;
 
-		case 7:
+		case 8:
 			exit();
 			break;
-
 		default:
 			print.printError("Select a valid option");
 		}
@@ -104,6 +107,40 @@ public class FlightView extends View {
 		}
 		p.table.print();
 		p.pressEnterToContinue();
+	}
+
+	private void emailFlightListByDate() {
+		print.clearScreen();
+		print.printMessage("Date format: yyyy-MM-dd");
+		print.printMessage("Enter date: ");
+		try {
+			scanner.nextLine();
+			String dateString = scanner.nextLine();
+			print.printMessage("enter your email: ");
+			String email = scanner.nextLine();
+			print.printMessage(flightController.sendReportByDay(LocalDate.parse(dateString), email));
+		} catch (Exception ex) {
+			print.printException("Error, enter a valid date, and a valid email and try again", ex);
+		} finally {
+			((PrinterConsole) print).pressEnterToContinue();
+		}
+
+	}
+
+	private void emailFlightListById() {
+		print.clearScreen();
+		print.printMessage("Enter flight number: ");
+		try {
+			scanner.nextLine();
+			String flightNumber = scanner.nextLine();
+			print.printMessage("enter your email: ");
+			String email = scanner.nextLine();
+			print.printMessage(flightController.sendReport(flightNumber, email));
+		} catch (Exception ex) {
+			print.printException("Error, enter a valid date, and a valid email and try again", ex);
+		} finally {
+			((PrinterConsole) print).pressEnterToContinue();
+		}
 	}
 
 	private void markFlightAsCancelled() {

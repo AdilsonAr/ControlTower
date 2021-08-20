@@ -37,16 +37,10 @@ public class FlightController {
 		return flightService.landFlight(flightNumber, flightIncidentDescription);
 	}
 
-	public String sendReport(int idFlight, String email) throws IOException {
+	public String sendReport(String idFlight, String email) throws IOException {
 		return sheetsWriterService.createReportByFlight(idFlight, email);
 	}
 
-	/*
-	 * DateTimeFormatter formatterDateOnly =
-	 * DateTimeFormatter.ofPattern("yyyy-MM-dd"); LocalDate date= LocalDate.of(2021,
-	 * 1, 3); System.out.println(flightController.sendReportByDay(date,
-	 * "cycles.250@gmail.com"));
-	 */
 	public String sendReportByDay(LocalDate date, String email) throws IOException {
 		return sheetsWriterService.createReportByDay(date, email);
 	}
