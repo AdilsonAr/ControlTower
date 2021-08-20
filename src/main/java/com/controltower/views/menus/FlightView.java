@@ -46,6 +46,7 @@ public class FlightView extends View {
 				option = Integer.parseInt(scanner.next());
 				selectOption(option);
 			} catch (Exception e) {
+				System.out.println(e.getMessage());
 				print.printException("enter a valid number", e);
 			}
 		} while (option != 7);
@@ -63,7 +64,9 @@ public class FlightView extends View {
 		case 2:
 			break;
 
+		// mark flight as landed
 		case 3:
+			markFlightAsLanded();
 			break;
 
 		// mark flight as cancelled
@@ -90,27 +93,29 @@ public class FlightView extends View {
 		print.clearScreen();
 		PrinterConsole p = (PrinterConsole) print;
 		p.table.setHeaders("Flight number", "Airline", "Aircraft", "Origin Airport", "Destination Airport",
-				"Departure Time", "Arrival Time");
+				"Departure Time", "Arrival Time", "STATUS");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		for (FlightResponseDto item : flightController.get()) {
 			p.table.addRow(item.getFlightNumber(), item.getAirline(), item.getAircraft(), item.getOriginAirport(),
 					item.getDestinationAirport(), item.getDateTimeDeparture().format(formatter),
-					item.getExpectedDateTimeArrival().format(formatter));
+					item.getExpectedDateTimeArrival().format(formatter), item.getCurrentStateText());
 		}
 		p.table.print();
+		p.pressEnterToContinue();
 	}
 
 	private void markFlightAsCancelled() {
 		print.clearScreen();
 		print.printMessage("Enter flight number");
 		try {
-			int idFlight = Integer.parseInt(scanner.next());
 			scanner.nextLine();
+			String idFlight = scanner.nextLine();
 			print.printMessage("Enter reason for the cancellation");
 			String reasonCancellation = scanner.nextLine();
 			boolean isCancelled = flightController.cancelFlight(idFlight, reasonCancellation);
 			print.printMessage("The flight "
 					+ (isCancelled ? "was cancelled successfully" : "couldn't be cancelled, please try again"));
+			((PrinterConsole) print).pressEnterToContinue();
 		} catch (Exception e) {
 			print.printException("only enter integer numbers", e);
 		}
@@ -120,10 +125,12 @@ public class FlightView extends View {
 		print.clearScreen();
 		print.printMessage("Enter flight number");
 		try {
-			int idFlight = Integer.parseInt(scanner.next());
-//			boolean isLanded = flightController.landFlight(idFlight, reasonCancellation);
-//			print.printMessage(
-//					"The flight " + (isCancelled ? "was landed successfully" : "couldn't be landed, please try again"));
+			scanner.nextLine();
+			String idFlight = scanner.nextLine();
+			boolean isLanded = flightController.landFlight(idFlight, "Flight landed succesfully!");
+			print.printMessage(
+					"The flight " + (isLanded ? "was landed successfully" : "couldn't be landed, please try again"));
+			((PrinterConsole) print).pressEnterToContinue();
 		} catch (Exception e) {
 			print.printException("only enter integer numbers", e);
 		}

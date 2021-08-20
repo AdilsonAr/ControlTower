@@ -26,12 +26,12 @@ public class FlightController {
 		return listDtos;
 	}
 
-	public boolean cancelFlight(int flightNumber, String flightIncidentDescription) {
-		return flightService.cancelFlight(flightNumber, flightIncidentDescription);
+	public boolean cancelFlight(String flightNumber, String flightIncidentDescription) {
+		return flightService.cancelFlight(flightNumber.toUpperCase().trim(), flightIncidentDescription);
 	}
 	
-	public boolean flightLanded(int flightNumber, String flightIncidentDescription) {
-		return flightService.cancelFlight(flightNumber, flightIncidentDescription);
+	public boolean landFlight(String flightNumber, String flightIncidentDescription) {
+		return flightService.landFlight(flightNumber, flightIncidentDescription);
 	}
 
 	public String sendReport(int idFlight, String email) throws IOException {
