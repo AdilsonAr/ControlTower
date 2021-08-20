@@ -35,9 +35,8 @@ public class FlightView extends View {
 				print.printMessage("3. email flights list by flight id");
 				print.printMessage("4. Mark flight as landed");
 				print.printMessage("5. Mark flight as cancelled");
-				print.printMessage("6. Create flight");
-				print.printMessage("7. Create list of flights from spreadsheet");
-				print.printMessage("8. exit");
+				print.printMessage("6. Create list of flights from spreadsheet");
+				print.printMessage("7. exit");
 				print.printMessage("Select option: ");
 				option = Integer.parseInt(scanner.next());
 				selectOption(option);
@@ -45,7 +44,7 @@ public class FlightView extends View {
 				print.printException("enter a valid number", e);
 				((PrinterConsole) print).pressEnterToContinue();
 			}
-		} while (option != 8);
+		} while (option != 7);
 	}
 
 	@Override
@@ -77,16 +76,12 @@ public class FlightView extends View {
 			markFlightAsCancelled();
 			break;
 
-		// create flight
-		case 6:
-			break;
-
 		// read spreadsheet and insert flights batch
-		case 7:
+		case 6:
 			createFlightsFromSpreadsheet();
 			break;
 
-		case 8:
+		case 7:
 			exit();
 			break;
 		default:
