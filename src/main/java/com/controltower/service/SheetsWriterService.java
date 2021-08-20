@@ -54,9 +54,12 @@ public class SheetsWriterService {
 	}
 	
 	private String createReport(List<FlightResponseDto> listDtos, String title, String email) throws IOException {
+		String wheather="wheather: sunny 33 ° and south-east wind";
 		Spreadsheet spreadsheet=create(title);
 		List<List<Object>> values=new ArrayList<>();
 		values.add(Arrays.asList(title));
+		values.add(Arrays.asList(""));
+		values.add(Arrays.asList(wheather));
 		values.add(Arrays.asList(""));
 		for(FlightResponseDto c: listDtos) {
 			String dateTimeDeparture="null";
