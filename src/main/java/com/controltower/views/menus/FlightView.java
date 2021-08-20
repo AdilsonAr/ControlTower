@@ -32,6 +32,7 @@ public class FlightView extends View {
 	public void show() {
 		do {
 			try {
+				print.clearScreen();
 				print.printMessage("1. List all flights");
 				print.printMessage("2. Send flights list by email");
 				print.printMessage("3. Mark flight as landed");
@@ -50,6 +51,8 @@ public class FlightView extends View {
 	@Override
 	protected void selectOption(int option) {
 		switch (option) {
+
+		// get list of flights
 		case 1:
 			getListOfFlights();
 			break;
@@ -60,7 +63,9 @@ public class FlightView extends View {
 		case 3:
 			break;
 
+		// mark flight as cancelled
 		case 4:
+			markFlightAsCancelled();
 			break;
 
 		case 5:
@@ -79,6 +84,7 @@ public class FlightView extends View {
 	}
 
 	private void getListOfFlights() {
+		print.clearScreen();
 		PrinterConsole p = (PrinterConsole) print;
 		p.table.setHeaders("Flight number", "Airline", "Aircraft", "Origin Airport", "Destination Airport",
 				"Departure Time", "Arrival Time");
@@ -89,6 +95,17 @@ public class FlightView extends View {
 					item.getExpectedDateTimeArrival().format(formatter));
 		}
 		p.table.print();
+	}
+
+	private void markFlightAsCancelled() {
+		print.clearScreen();
+		print.printMessage("Enter flight number");
+		try {
+			int idFlight = Integer.parseInt(scanner.nextLine());
+		} catch (Exception e) {
+			print.printException("only enter integer numbers, PRESS ENTER TO CONTINUE", e);
+			scanner.next();
+		}
 	}
 
 }

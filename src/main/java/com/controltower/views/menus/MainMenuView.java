@@ -15,17 +15,16 @@ public class MainMenuView extends View {
 	public void show() {
 		do {
 			try {
+				print.clearScreen();
 				print.printMessage("1. Airport Menu");
 				print.printMessage("2. Airline Menu");
 				print.printMessage("3. Flight Menu");
 				print.printMessage("4. Exit");
 				print.printMessage("Select option: ");
 				this.option = Integer.parseInt(scanner.next());
-				print.clearScreen();
 				selectOption(this.option);
 			} catch (java.lang.Exception e) {
-				System.out.println(e.getMessage());
-				print.printException("enter a number between 1-4", e);
+				print.printException("only enter a number between 1-4, PRESS ENTER TO CONTINUE", e);
 				this.option = 0;
 				scanner.next();
 			}
