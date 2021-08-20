@@ -60,7 +60,7 @@ public class FlightDao {
         entityManager.close();
         return flight;
 	}
-	
+
 	public Flight readByNumber(String number) {
 		EntityManagerFactory emf = EntityManagerProvider.get();
         EntityManager entityManager = emf.createEntityManager();
@@ -70,4 +70,5 @@ public class FlightDao {
         entityManager.close();
         return result;
 	}
+
 }

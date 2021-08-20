@@ -14,32 +14,33 @@ import com.controltower.service.SheetsWriterService;
 public class FlightController {
 	private FlightService flightService;
 	private SheetsWriterService sheetsWriterService;
-	
+
 	public FlightController() throws IOException, GeneralSecurityException {
-		flightService=new FlightService();
-		sheetsWriterService=new SheetsWriterService();
-	}
-	
-	public List<FlightResponseDto> get(){
-		List<FlightResponseDto> listDtos=new ArrayList<>();
-		(flightService.readAll()).forEach(x->listDtos.add(FlightResponseDto.toDto(x)));
-		return listDtos;
-	}
-	
-	public boolean cancelFlight(int flightNumber, FlightIncident flightIncident) {
-		return flightService.cancelFlight(flightNumber, flightIncident);
+		flightService = new FlightService();
+		sheetsWriterService = new SheetsWriterService();
 	}
 
-	public String sendReport(int idFlight, String email) throws IOException{
+	public List<FlightResponseDto> get() {
+		List<FlightResponseDto> listDtos = new ArrayList<>();
+		(flightService.readAll()).forEach(x -> listDtos.add(FlightResponseDto.toDto(x)));
+		return listDtos;
+	}
+
+	public boolean cancelFlight(int flightNumber, String flightIncidentDescription) {
+		return flightService.cancelFlight(flightNumber, flightIncidentDescription);
+	}
+
+	public String sendReport(int idFlight, String email) throws IOException {
 		return sheetsWriterService.createReportByFlight(idFlight, email);
 	}
-	
+
 	/*
-	 * DateTimeFormatter formatterDateOnly = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			LocalDate date= LocalDate.of(2021, 1, 3);
-			System.out.println(flightController.sendReportByDay(date,"cycles.250@gmail.com"));
+	 * DateTimeFormatter formatterDateOnly =
+	 * DateTimeFormatter.ofPattern("yyyy-MM-dd"); LocalDate date= LocalDate.of(2021,
+	 * 1, 3); System.out.println(flightController.sendReportByDay(date,
+	 * "cycles.250@gmail.com"));
 	 */
-	public String sendReportByDay(LocalDate date, String email) throws IOException{
+	public String sendReportByDay(LocalDate date, String email) throws IOException {
 		return sheetsWriterService.createReportByDay(date, email);
 	}
 }
