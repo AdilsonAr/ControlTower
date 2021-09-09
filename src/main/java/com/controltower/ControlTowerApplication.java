@@ -1,7 +1,5 @@
 package com.controltower;
 
-
-import com.controltower.service.WeatherService;
 import java.util.Scanner;
 import com.controltower.views.View;
 import com.controltower.views.menus.MainMenuView;
@@ -15,7 +13,6 @@ public class ControlTowerApplication {
 		Printer output = new PrinterConsole();
 		View startMenu = new MainMenuView(input, output);
 		startMenu.show();
-
 	}
 
 }

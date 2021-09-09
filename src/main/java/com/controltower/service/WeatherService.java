@@ -15,87 +15,114 @@ import java.util.logging.Logger;
 
 public class WeatherService {
 
-    private WeatherService() {
-    }
+	private static Map<String, Object> jsonToMap(String str) {
+		Map<String, Object> map = new Gson().fromJson(str, new TypeToken<HashMap<String, Object>>() {
+		}.getType());
+		return map;
+	}
 
-    public static Map<String, Object> jsonToMap(String str) {
-        Map<String, Object> map =
-                new Gson().fromJson(str, new TypeToken<HashMap<String, Object>>() {
-                }.getType());
-        return map;
-    }
+	public static String getOneCityWeather(String city) {
 
-    public static String getOneCityWeather(String city) {
+		String cityWeather = "";
+		city = city.trim().replace(" ", "+");
+		String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid="
+				+ System.getenv("OW_API_KEY");
 
+		try {
 
-        String cityWeather = "";
-        city = city.trim().replace(" ", "+");
-        String urlString =
-                "https://api.openweathermap.org/data/2.5/weather?q="
-                        + city
-                        + "&appid="
-                        + System.getenv("OW_API_KEY");
+			StringBuilder result = new StringBuilder();
+			URL url = new URL(urlString);
+			URLConnection conn = url.openConnection();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+			while ((line = rd.readLine()) != null) {
+				result.append(line);
+			}
 
-        try {
+			rd.close();
 
-            StringBuilder result = new StringBuilder();
-            URL url = new URL(urlString);
-            URLConnection conn = url.openConnection();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = rd.readLine()) != null) {
-                result.append(line);
-            }
+			StringBuilder newResult;
+			newResult = result.deleteCharAt(result.indexOf("["));
+			newResult = newResult.deleteCharAt(newResult.indexOf("]"));
+			Map<String, Object> respMap = jsonToMap(newResult.toString());
+			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
+			String des = "\"description\":\"";
+			String weather = newResult.substring(newResult.indexOf(des) + des.length(),
+					newResult.indexOf("\",\"icon\""));
 
-            rd.close();
+			String windDirection = String.valueOf(windMap.get("deg"));
+			int windDegree = 0;
+			windDegree = Integer.parseInt(windDirection.substring(0, windDirection.length() - 2));
 
-            StringBuilder newResult;
-            newResult = result.deleteCharAt(result.indexOf("["));
-            newResult = newResult.deleteCharAt(newResult.indexOf("]"));
-            Map<String, Object> respMap = jsonToMap(newResult.toString());
-            Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
-            String des = "\"description\":\"";
-            String weather =
-                    newResult.substring(
-                            newResult.indexOf(des) + des.length(), newResult.indexOf("\",\"icon\""));
+			switch (windDegree) {
+			case 0:
+				windDirection = "north";
+				break;
+			case 90:
+				windDirection = "east";
+				break;
+			case 180:
+				windDirection = "sout";
+				break;
+			case 270:
+				windDirection = "west";
+				break;
+			default:
+				if (isNorthEast(windDegree)) {
+					windDirection = "north east";
+				} else if (isSouthEast(windDegree)) {
+					windDirection = "south east";
+				} else if (isSouthWest(windDegree)) {
+					windDirection = "south west";
+				} else if (isNorthWest(windDegree)) {
+					windDirection = "north west";
+				} else {
+					windDirection = "error";
+				}
+			}
 
-            String windDirection = String.valueOf(windMap.get("deg"));
-            int windDegree = 0;
-            windDegree = Integer.parseInt(windDirection.substring(0, windDirection.length() - 2));
+			cityWeather = " " + weather + " and wind " + windDirection + " " + windDegree + "°";
 
-            switch (windDegree) {
-                case 0:
-                    windDirection = "north";
-                    break;
-                case 90:
-                    windDirection = "east";
-                    break;
-                case 180:
-                    windDirection = "sout";
-                    break;
-                case 270:
-                    windDirection = "west";
-                    break;
-                default:
-                    if (windDegree > 0 && windDegree < 90) {
-                        windDirection = "north east";
-                    } else if (windDegree > 90 && windDegree < 180) {
-                        windDirection = "south east";
-                    } else if (windDegree > 180 && windDegree < 270) {
-                        windDirection = "south west";
-                    } else if (windDegree > 270 && windDegree < 360) {
-                        windDirection = "north west";
-                    } else {
-                        windDirection = "error";
-                    }
-            }
+		} catch (IOException e) {
+			Logger logger = Logger.getLogger(WeatherService.class.getName());
+			logger.log(Level.WARNING, () -> String.valueOf(e));
+		}
+		return cityWeather;
+	}
 
-            cityWeather = " " + weather + " and wind " + windDirection + " " + windDegree + "°";
+	private static boolean isNorthEast(int windDegree){
+		if (windDegree > 0 && windDegree < 90) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(WeatherService.class.getName());
-            logger.log(Level.WARNING, () -> String.valueOf(e));
-        }
-        return cityWeather;
-    }
+	private static boolean isSouthEast(int windDegree){
+		if (windDegree > 90 && windDegree < 180) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	private static boolean isSouthWest(int windDegree){
+		if (windDegree > 180 && windDegree < 270) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	private static boolean isNorthWest(int windDegree){
+		if (windDegree > 270 && windDegree < 360) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

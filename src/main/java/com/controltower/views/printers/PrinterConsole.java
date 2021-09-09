@@ -1,6 +1,14 @@
 package com.controltower.views.printers;
 
+import java.io.IOException;
+
 public class PrinterConsole implements Printer {
+
+	public ConsoleTable table;
+
+	public PrinterConsole() {
+		this.table = new ConsoleTable();
+	}
 
 	@Override
 	public void printMessage(String message) {
@@ -26,9 +34,18 @@ public class PrinterConsole implements Printer {
 			} else {
 				Runtime.getRuntime().exec("clear");
 			}
-		} catch (final Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("error clearing console");
+		}
+	}
+
+	public void pressEnterToContinue() {
+		System.out.println("Press ENTER to continue");
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

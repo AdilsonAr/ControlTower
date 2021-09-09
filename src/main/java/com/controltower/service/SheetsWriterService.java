@@ -33,8 +33,8 @@ public class SheetsWriterService {
 		flightService=new FlightService();
 	}
 	
-	public String createReportByFlight(int idFlight, String email) throws IOException {
-		Flight flight=flightService.readById(idFlight);
+	public String createReportByFlight(String idFlight, String email) throws IOException {
+		Flight flight=flightService.readByFlightNumber(idFlight);
 		if(flight==null) {
 			return "That flight does not exist";
 		}
@@ -54,9 +54,12 @@ public class SheetsWriterService {
 	}
 	
 	private String createReport(List<FlightResponseDto> listDtos, String title, String email) throws IOException {
+		String wheather=WeatherService.getOneCityWeather("San Salvador");
 		Spreadsheet spreadsheet=create(title);
 		List<List<Object>> values=new ArrayList<>();
 		values.add(Arrays.asList(title));
+		values.add(Arrays.asList(""));
+		values.add(Arrays.asList(wheather));
 		values.add(Arrays.asList(""));
 		for(FlightResponseDto c: listDtos) {
 			String dateTimeDeparture="null";
