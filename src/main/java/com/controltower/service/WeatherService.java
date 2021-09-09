@@ -46,13 +46,9 @@ public class WeatherService {
 			newResult = newResult.deleteCharAt(newResult.indexOf("]"));
 			Map<String, Object> respMap = jsonToMap(newResult.toString());
 			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
-			String des = "\"description\":\"";
-			String weather = newResult.substring(newResult.indexOf(des) + des.length(),
-					newResult.indexOf("\",\"icon\""));
 
 			String windDirection = String.valueOf(windMap.get("deg"));
-			int windDegree = 0;
-			windDegree = Integer.parseInt(windDirection.substring(0, windDirection.length() - 2));
+			int windDegree = getWindDegree(windDirection);
 
 			switch (windDegree) {
 			case 0:
@@ -62,7 +58,7 @@ public class WeatherService {
 				windDirection = "east";
 				break;
 			case 180:
-				windDirection = "sout";
+				windDirection = "south";
 				break;
 			case 270:
 				windDirection = "west";
@@ -81,7 +77,7 @@ public class WeatherService {
 				}
 			}
 
-			cityWeather = " " + weather + " and wind " + windDirection + " " + windDegree + "°";
+			cityWeather = " " + getWeather(newResult) + " and wind " + windDirection + " " + windDegree + "°";
 
 		} catch (IOException e) {
 			Logger logger = Logger.getLogger(WeatherService.class.getName());
@@ -124,5 +120,15 @@ public class WeatherService {
 		else {
 			return false;
 		}
+	}
+
+	private static int getWindDegree(String windDirection){
+		return Integer.parseInt(windDirection.substring(0, windDirection.length() - 2));
+	}
+
+	private static String getWeather(StringBuilder result){
+		String des = "\"description\":\"";
+		return result.substring(result.indexOf(des) + des.length(),
+				result.indexOf("\",\"icon\""));
 	}
 }
