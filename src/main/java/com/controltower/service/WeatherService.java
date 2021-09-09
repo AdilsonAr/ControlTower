@@ -24,7 +24,6 @@ public class WeatherService {
     }
 
     public static String getOneCityWeather(String city) {
-        String cityWeather = "";
         String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + city.trim().replace(" ", "+") + "&appid="
                 + System.getenv("OW_API_KEY");
         return getWeather(getFullResult(urlString))
