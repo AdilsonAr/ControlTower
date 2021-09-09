@@ -64,6 +64,7 @@ public class WeatherService {
 				windDirection = "west";
 				break;
 			default:
+
 				if (isNorthEast(windDegree)) {
 					windDirection = "north east";
 				} else if (isSouthEast(windDegree)) {
