@@ -15,7 +15,7 @@ public class ControlTowerApplication {
 		Printer output = new PrinterConsole();
 		View startMenu = new MainMenuView(input, output);
 		startMenu.show();*/
-		System.out.println(WeatherServFice.getOneCityWeather("Miami"));
+		System.out.println(WeatherService.getOneCityWeather("Miami"));
 	}
 
 }
