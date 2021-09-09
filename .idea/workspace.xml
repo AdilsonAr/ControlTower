@@ -5,19 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7a154ec-b1ef-4547-a69f-5233dee9e886" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/controltower/service/WindDegree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/controltower/service/WindDirection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/com.dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/com.dev.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controltower/ControlTowerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/controltower/ControlTowerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controltower/service/AddressService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controltower/service/AirlineService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controltower/service/AirportService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controltower/service/GoogleSheetService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controltower/service/OperationPermissionService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/controltower/service/WeatherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/controltower/service/WeatherService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controltower/views/menus/Exception.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/import.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +131,7 @@
       <workItem from="1629409356331" duration="3953000" />
       <workItem from="1629297880698" duration="4081000" />
       <workItem from="1629341482932" duration="2132000" />
-      <workItem from="1631197992728" duration="4653000" />
+      <workItem from="1631197992728" duration="9573000" />
     </task>
     <servers />
   </component>
