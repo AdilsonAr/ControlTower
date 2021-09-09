@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -17,8 +16,7 @@ public class FlightDao {
 	public List<Flight> readAll() {
 		EntityManagerFactory emf = EntityManagerProvider.get();
 		EntityManager entityManager = emf.createEntityManager();
-
-		Query q = entityManager.createQuery("select s from Flight s");
+		TypedQuery<Flight> q = entityManager.createQuery("select s from Flight s", Flight.class);
 		List<Flight> resultList = q.getResultList();
 		entityManager.close();
 		return resultList;
@@ -33,7 +31,6 @@ public class FlightDao {
 		TypedQuery<Flight> q = entityManager.createQuery("select u from Flight u WHERE DATE(u.dateTimeDeparture) = '"
 				+ dateParameter + "' or DATE(u.dateTimeArrival) = '" + dateParameter + "'", Flight.class);
 		List<Flight> resultList = q.getResultList();
-		System.out.println(resultList.getClass().getCanonicalName());
 		entityManager.close();
 		return resultList;
 	}

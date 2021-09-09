@@ -58,7 +58,7 @@ public class SheetsReaderService {
 	        if (values == null || values.isEmpty()) {
 	            System.out.println("No data found.");
 	        } else {
-	            for (List row : values) {
+	            for (List<Object> row : values) {
 	                // getting a flight
 	            	Flight current=new Flight();
 	                current.setCurrentStateText(row.get(0).toString());

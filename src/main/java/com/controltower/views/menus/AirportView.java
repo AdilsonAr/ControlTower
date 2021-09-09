@@ -1,8 +1,6 @@
 package com.controltower.views.menus;
 
 import java.util.Scanner;
-import java.io.IOException;
-import java.lang.Exception;
 
 import com.controltower.controller.AircraftController;
 import com.controltower.model.Aircraft;
