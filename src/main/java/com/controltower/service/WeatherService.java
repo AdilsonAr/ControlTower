@@ -51,13 +51,9 @@ public class WeatherService {
 			newResult = newResult.deleteCharAt(newResult.indexOf("]"));
 			Map<String, Object> respMap = jsonToMap(newResult.toString());
 			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
-			String des = "\"description\":\"";
-			String weather = newResult.substring(newResult.indexOf(des) + des.length(),
-					newResult.indexOf("\",\"icon\""));
 
 			String windDirection = String.valueOf(windMap.get("deg"));
-			int windDegree = 0;
-			windDegree = Integer.parseInt(windDirection.substring(0, windDirection.length() - 2));
+			int windDegree = getWindDegree(windDirection);
 
 			switch (windDegree) {
 			case 0:
@@ -67,31 +63,78 @@ public class WeatherService {
 				windDirection = "east";
 				break;
 			case 180:
-				windDirection = "sout";
+				windDirection = "south";
 				break;
 			case 270:
 				windDirection = "west";
 				break;
 			default:
-				if (windDegree > 0 && windDegree < 90) {
+
+				if (isNorthEast(windDegree)) {
 					windDirection = "north east";
-				} else if (windDegree > 90 && windDegree < 180) {
+				} else if (isSouthEast(windDegree)) {
 					windDirection = "south east";
-				} else if (windDegree > 180 && windDegree < 270) {
+				} else if (isSouthWest(windDegree)) {
 					windDirection = "south west";
-				} else if (windDegree > 270 && windDegree < 360) {
+				} else if (isNorthWest(windDegree)) {
 					windDirection = "north west";
 				} else {
 					windDirection = "error";
 				}
 			}
 
-			cityWeather = " " + weather + " and wind " + windDirection + " " + windDegree + "°";
+			cityWeather = " " + getWeather(newResult) + " and wind " + windDirection + " " + windDegree + "°";
 
 		} catch (IOException e) {
 			Logger logger = Logger.getLogger(WeatherService.class.getName());
 			logger.log(Level.WARNING, () -> String.valueOf(e));
 		}
 		return cityWeather;
+	}
+
+	private static boolean isNorthEast(int windDegree){
+		if (windDegree > 0 && windDegree < 90) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	private static boolean isSouthEast(int windDegree){
+		if (windDegree > 90 && windDegree < 180) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	private static boolean isSouthWest(int windDegree){
+		if (windDegree > 180 && windDegree < 270) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	private static boolean isNorthWest(int windDegree){
+		if (windDegree > 270 && windDegree < 360) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	private static int getWindDegree(String windDirection){
+		return Integer.parseInt(windDirection.substring(0, windDirection.length() - 2));
+	}
+
+	private static String getWeather(StringBuilder result){
+		String des = "\"description\":\"";
+		return result.substring(result.indexOf(des) + des.length(),
+				result.indexOf("\",\"icon\""));
 	}
 }
