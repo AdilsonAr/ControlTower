@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WeatherService {
-
+	
     private static Map<String, Object> jsonToMap(String str) {
         return new Gson().fromJson(str, new TypeToken<HashMap<String, Object>>() {
         }.getType());
@@ -65,4 +65,5 @@ public class WeatherService {
         }
         return result;
     }
+
 }

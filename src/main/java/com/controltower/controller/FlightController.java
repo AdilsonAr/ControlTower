@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.controltower.dto.FlightResponseDto;
-import com.controltower.model.Airline;
-import com.controltower.model.flight.Flight;
-import com.controltower.model.flight.FlightIncident;
 import com.controltower.service.FlightService;
 import com.controltower.service.SheetsReaderService;
 import com.controltower.service.SheetsWriterService;
