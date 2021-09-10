@@ -2,6 +2,8 @@ package com.controltower.service;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,85 +15,55 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WeatherService {
+	
+    private static Map<String, Object> jsonToMap(String str) {
+        return new Gson().fromJson(str, new TypeToken<HashMap<String, Object>>() {
+        }.getType());
+    }
 
-	private static Map<String, Object> jsonToMap(String str) {
-		Map<String, Object> map = new Gson().fromJson(str, new TypeToken<HashMap<String, Object>>() {
+    public static String getOneCityWeather(String city) {
+        String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + city.trim().replace(" ", "+") + "&appid="
+                + System.getenv("OW_API_KEY");
+        return getWeather(getFullResult(urlString))
+                + " and wind "
+                + WindDirection.getWindDirection(WindDegree.getWindDegree(getWindInformation(getFullResult(urlString))))
+                + " "
+                + WindDegree.getWindDegree(getWindInformation(getFullResult(urlString)))
+                + "°";
+    }
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = -461320958218731361L;
-		}.getType());
-		return map;
-	}
+    private static String getWindInformation(StringBuilder result) {
+        Map<String, Object> respMap = jsonToMap(result.toString());
+        Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
+        return String.valueOf(windMap.get("deg"));
+    }
 
-	public static String getOneCityWeather(String city) {
+    private static String getWeather(StringBuilder result) {
+        String des = "\"description\":\"";
+        return result.substring(result.indexOf(des) + des.length(),
+                result.indexOf("\",\"icon\""));
+    }
 
-		String cityWeather = "";
-		city = city.trim().replace(" ", "+");
-		String urlString = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid="
-				+ System.getenv("OW_API_KEY");
+    private static StringBuilder getFullResult(String urlString) {
+        StringBuilder result = new StringBuilder();
+        try {
+            URL url = new URL(urlString);
+            URLConnection conn = url.openConnection();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                result.append(line);
+            }
+            result.deleteCharAt(result.indexOf("["));
+            result.deleteCharAt(result.indexOf("]"));
+            rd.close();
+        } catch (IOException e) {
+            Logger logger = Logger.getLogger(WeatherService.class.getName());
+            logger.log(Level.WARNING, () -> String.valueOf(e));
+        }
+        return result;
+    }
 
-		try {
-
-			StringBuilder result = new StringBuilder();
-			URL url = new URL(urlString);
-			URLConnection conn = url.openConnection();
-			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String line;
-			while ((line = rd.readLine()) != null) {
-				result.append(line);
-			}
-
-			rd.close();
-
-			StringBuilder newResult;
-			newResult = result.deleteCharAt(result.indexOf("["));
-			newResult = newResult.deleteCharAt(newResult.indexOf("]"));
-			Map<String, Object> respMap = jsonToMap(newResult.toString());
-			Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
-			String des = "\"description\":\"";
-			String weather = newResult.substring(newResult.indexOf(des) + des.length(),
-					newResult.indexOf("\",\"icon\""));
-
-			String windDirection = String.valueOf(windMap.get("deg"));
-			int windDegree = 0;
-			windDegree = Integer.parseInt(windDirection.substring(0, windDirection.length() - 2));
-
-			switch (windDegree) {
-			case 0:
-				windDirection = "north";
-				break;
-			case 90:
-				windDirection = "east";
-				break;
-			case 180:
-				windDirection = "sout";
-				break;
-			case 270:
-				windDirection = "west";
-				break;
-			default:
-				if (windDegree > 0 && windDegree < 90) {
-					windDirection = "north east";
-				} else if (windDegree > 90 && windDegree < 180) {
-					windDirection = "south east";
-				} else if (windDegree > 180 && windDegree < 270) {
-					windDirection = "south west";
-				} else if (windDegree > 270 && windDegree < 360) {
-					windDirection = "north west";
-				} else {
-					windDirection = "error";
-				}
-			}
-
-			cityWeather = " " + weather + " and wind " + windDirection + " " + windDegree + "°";
-
-		} catch (IOException e) {
-			Logger logger = Logger.getLogger(WeatherService.class.getName());
-			logger.log(Level.WARNING, () -> String.valueOf(e));
-		}
-		return cityWeather;
-	}
 }
