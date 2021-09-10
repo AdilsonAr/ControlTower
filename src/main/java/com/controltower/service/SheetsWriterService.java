@@ -19,7 +19,6 @@ import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 public class SheetsWriterService {
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	private DateTimeFormatter formatterDateOnly = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	private Sheets sheets;
 	private Drive drive;
@@ -55,35 +54,19 @@ public class SheetsWriterService {
 		String wheather=WeatherService.getOneCityWeather("San Salvador");
 		Spreadsheet spreadsheet=create(title);
 		List<List<Object>> values=new ArrayList<>();
+		
 		values.add(Arrays.asList(title));
 		values.add(Arrays.asList(""));
 		values.add(Arrays.asList(wheather));
 		values.add(Arrays.asList(""));
-		for(FlightResponseDto c: listDtos) {
-			String dateTimeDeparture="null";
-			String dateTimeArrival="null";
-			if((c.getDateTimeDeparture())!=null) {
-				dateTimeDeparture=(c.getDateTimeDeparture()).format(formatter);
-			}
-			if((c.getDateTimeArrival())!=null) {
-				dateTimeArrival=(c.getDateTimeArrival()).format(formatter);
-			}
-			values.add(Arrays.asList("Id Flight", "Flight Number", "Origin Airport", "Destination Airport",
-					"Date Time Departure", "Date Time Arrival",
-					"Expected Date Time Arrival", "Aircraft", "Airline", "Current State Text"));
-			values.add(
-					Arrays.asList(c.getIdFlight(), c.getFlightNumber(), c.getOriginAirport(), c.getDestinationAirport(),
-					dateTimeDeparture, dateTimeArrival,
-					(c.getExpectedDateTimeArrival()).format(formatter), c.getAircraft(), c.getAirline(), c.getCurrentStateText())
-					);
-		}
 		
+		FlightMapper.toSheets(listDtos, values);
 		ValueRange body = new ValueRange().setValues(values);
 		
 		write(spreadsheet.getSpreadsheetId(), body);
 		createPermission(spreadsheet.getSpreadsheetId(), email);
-		String message;
-		message = "The report you requested is already available with this URL: " + spreadsheet.getSpreadsheetUrl();
+		
+		String message = "The report you requested is already available with this URL: " + spreadsheet.getSpreadsheetUrl();
 		return message;
 	}
 	

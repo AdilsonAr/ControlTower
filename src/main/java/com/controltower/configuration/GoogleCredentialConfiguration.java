@@ -13,21 +13,29 @@ import lombok.Getter;
 
 @Getter
 public class GoogleCredentialConfiguration {
-	private Credential credential;
-	private static GoogleCredentialConfiguration googleCredentialConfiguration=null;
-	private GoogleCredentialConfiguration() throws IOException {
-		List<String> scopes = Arrays.asList(SheetsScopes.SPREADSHEETS, DriveScopes.DRIVE);
-		// You can specify a credential file by providing a path to GoogleCredentials.
-		// Otherwise credentials are read from the GOOGLE_APPLICATION_CREDENTIALS
-		// environment variable.
-		credential = GoogleCredential.getApplicationDefault().createScoped(scopes);
+	private static Credential SheetsCredential=null;
+	private static Credential DriveCredential=null;
+	
+	public static Credential getDriveInstance() throws IOException {
+		if(DriveCredential==null) {
+			List<String> scopes = Arrays.asList(DriveScopes.DRIVE);
+			// You can specify a credential file by providing a path to GoogleCredentials.
+			// Otherwise credentials are read from the GOOGLE_APPLICATION_CREDENTIALS
+			// environment variable.
+			DriveCredential = GoogleCredential.getApplicationDefault().createScoped(scopes);
+		}
+		return DriveCredential;
 	}
 	
-	public static GoogleCredentialConfiguration getInstance() throws IOException {
-		if(googleCredentialConfiguration==null) {
-			googleCredentialConfiguration= new GoogleCredentialConfiguration();
+	public static Credential getSheetsInstance() throws IOException {
+		if(SheetsCredential==null) {
+			List<String> scopes = Arrays.asList(SheetsScopes.SPREADSHEETS);
+			// You can specify a credential file by providing a path to GoogleCredentials.
+			// Otherwise credentials are read from the GOOGLE_APPLICATION_CREDENTIALS
+			// environment variable.
+			SheetsCredential = GoogleCredential.getApplicationDefault().createScoped(scopes);
 		}
-		return googleCredentialConfiguration;
+		return SheetsCredential;
 	}
 
 }
