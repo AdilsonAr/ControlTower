@@ -46,7 +46,7 @@ class Test {
 		System.out.println(flight.getIdFlight());
 		
 	}
-	*/
+	
 	@org.junit.jupiter.api.Test
 	void test4() {
 		
@@ -56,6 +56,9 @@ class Test {
 		System.out.println(flightService.readByFlightNumber("JK 55").getCurrentStateText());
 		
 	}
+	
+	*/
+	
 	/*
 	@org.junit.jupiter.api.Test
 	void test5() {

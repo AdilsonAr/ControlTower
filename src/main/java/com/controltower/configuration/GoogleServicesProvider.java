@@ -14,7 +14,7 @@ public class GoogleServicesProvider {
 	public static Drive getDrive() throws GeneralSecurityException, IOException {
 		// Build a new authorized API client service.
         Drive service = new Drive.Builder(GoogleNetHttpTransport.newTrustedTransport(), 
-        		JacksonFactory.getDefaultInstance(), GoogleCredentialConfiguration.getInstance().getCredential())
+        		JacksonFactory.getDefaultInstance(), GoogleCredentialConfiguration.getDriveInstance())
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         return service;
@@ -23,7 +23,7 @@ public class GoogleServicesProvider {
 	public static Sheets getSheets() throws IOException, GeneralSecurityException {
         return new Sheets.Builder(
           GoogleNetHttpTransport.newTrustedTransport(),
-          JacksonFactory.getDefaultInstance(), GoogleCredentialConfiguration.getInstance().getCredential())
+          JacksonFactory.getDefaultInstance(), GoogleCredentialConfiguration.getSheetsInstance())
           .setApplicationName(APPLICATION_NAME)
           .build();
     }
